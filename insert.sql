@@ -1,12 +1,3 @@
-ALTER TABLE disciplina
-ADD CONSTRAINT chk_vagas
-CHECK (Vagas BETWEEN 1 AND 60);
-
-ALTER TABLE professor
-ADD CONSTRAINT chk_matricula_professor
-CHECK (Matricula BETWEEN 1000 AND 9999);
-
-
 
 INSERT INTO professor (MatriculaProfessor, Email) VALUES
 (1234, 'ana.silva@uni.com'),
