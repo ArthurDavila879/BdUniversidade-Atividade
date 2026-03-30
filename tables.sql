@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS curso (
   PRIMARY KEY (CodigoCurso),
 
   CONSTRAINT chk_curso_carga
-    CHECK (CargaHoraria >= 1000),
+    CHECK (CargaHoraria >= 40),
 
   FOREIGN KEY (Professor_Matricula)
     REFERENCES professor (MatriculaProfessor)
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS disciplina (
   PRIMARY KEY (CodigoDisciplina),
 
   CONSTRAINT chk_disc_vagas
-    CHECK (Vagas > 0),
+    CHECK (Vagas <= 60),
 
   CONSTRAINT chk_disc_semestre
     CHECK (Semestre REGEXP '^[0-9]{4}\\.[12]$'),
