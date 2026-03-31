@@ -54,26 +54,7 @@ SOURCE insert.sql;
 
 > Também é possível abrir o arquivo `Universidade.mwb` no MySQL Workbench para visualizar o diagrama EER.
 
-## Exemplos de consultas para demonstrar o trabalho
 
-```sql
--- Listar alunos com seus cursos
-SELECT a.Matricula, a.Nome AS Aluno, c.Nome AS Curso
-FROM aluno a
-LEFT JOIN curso c ON c.CodigoCurso = a.Curso_Codigo;
-
--- Disciplinas ofertadas com matéria e professor
-SELECT d.CodigoDisciplina, d.Semestre, m.Nome AS Materia, p.MatriculaProfessor
-FROM disciplina d
-JOIN materia m ON m.CodigoMateria = d.Materia_Codigo
-JOIN professor p ON p.MatriculaProfessor = d.Professor_Matricula;
-
--- Pré-requisitos de cada matéria
-SELECT m.Nome AS Materia, mp.Nome AS PreRequisito
-FROM prerequisito pr
-JOIN materia m  ON m.CodigoMateria = pr.Materia_Codigo
-JOIN materia mp ON mp.CodigoMateria = pr.CodigoMateriaPre;
-```
 
 ## Objetivo acadêmico
 
