@@ -1,67 +1,32 @@
-# Banco de Dados - Universidade
+# Projeto Sistema Acadêmico - Banco de Dados II (UVV)
 
-Este repositório contém o trabalho de modelagem e implementação de um banco de dados acadêmico de **Universidade**, feito em MySQL.
+Este repositório contém a modelagem física (SQL) de um sistema universitário desenvolvido para a disciplina de **Banco de Dados II** na **Universidade Vila Velha (UVV)**.
 
-A proposta do trabalho é representar, em um banco relacional, as principais entidades de um contexto universitário (professores, cursos, alunos, matérias, disciplinas, pré-requisitos e matrículas), incluindo regras de integridade para manter os dados consistentes.
+## 📌 Sobre o Projeto
+O objetivo foi transformar um "minimundo" acadêmico em um banco de dados relacional funcional, garantindo que todas as regras de negócio fossem validadas diretamente no Schema através de constraints.
 
-## Estrutura do projeto
+### 🏫 Regras de Negócio Implementadas:
+* **Cursos e Matérias:** Relacionamento N:M onde cada curso possui carga horária padrão de 3.600h[cite: 8, 9].
+* **Disciplinas:** Controle de oferta por semestre com limite rígido de **60 vagas**[cite: 11, 12].
+* **Corpo Docente:** Professores possuem matrícula de **exatamente 4 dígitos** e e-mail único[cite: 16].
+* **Coordenação:** Regra de exclusividade onde cada professor coordena no máximo um curso[cite: 17].
+* **Alunos:** Suporte a múltiplos e-mails por aluno e possibilidade de "alunos avulsos" (sem curso vinculado)[cite: 13, 14].
+* **Pré-requisitos:** Implementação de auto-relacionamento na tabela de matérias[cite: 10].
 
-- `tables.sql`: script de criação do schema `universidade` e de todas as tabelas com chaves primárias, estrangeiras e `CHECK constraints`.
-- `insert.sql`: script de carga inicial com dados de exemplo para testar o modelo.
-- `Universidade.mwb`: arquivo do modelo EER criado no MySQL Workbench.
+## 🛠️ Tecnologias Utilizadas
+* **MySQL Workbench** (Modelagem e Engenharia Reversa)
+* **SQL (DDL):** Uso avançado de `CHECK CONSTRAINTS`, `UNIQUE INDEX` e `FOREIGN KEYS`.
 
-## O que o trabalho modela
+## 📂 Estrutura do Código
+O script realiza a criação das seguintes entidades:
+1. `professor` (com validação de 4 dígitos)
+2. `curso` (com default de 3600h)
+3. `aluno`
+4. `materia` (com carga horária mínima de 40h)
+5. `disciplina` (com trava de 60 vagas)
+6. `emailaluno` (entidade fraca para multivaloração)
+7. `prerequisito` (tabela de associação para auto-relacionamento)
 
-### Entidades principais
+---
 
-- **professor**: matrícula e e-mail único do professor.
-- **curso**: código, nome, carga horária e professor responsável.
-- **aluno**: matrícula, nome e curso (opcional para permitir aluno avulso).
-- **materia**: componentes curriculares e carga horária mínima.
-- **disciplina**: oferta de uma matéria em um semestre, com professor e número de vagas.
-
-### Relacionamentos
-
-- **curso_has_materia**: relacionamento N:N entre curso e matéria.
-- **disciplina_has_aluno**: relacionamento N:N entre disciplina e aluno (matrículas dos alunos nas turmas).
-- **emailaluno**: permite múltiplos e-mails por aluno.
-- **prerequisito**: controla dependência entre matérias (uma matéria pode exigir outra como pré-requisito).
-
-## Regras de integridade aplicadas
-
-O script inclui validações importantes, por exemplo:
-
-- Faixa válida para matrícula de professor (`1000` a `9999`).
-- Formato básico de e-mail para professor e aluno.
-- Carga horária mínima de curso e matéria maior que zero.
-- `Vagas > 0` em disciplina.
-- Semestre no formato `AAAA.1` ou `AAAA.2`.
-- Bloqueio de pré-requisito da própria matéria (`CodigoMateriaPre <> Materia_Codigo`).
-
-## Como executar
-
-1. Crie as tabelas:
-
-```sql
-SOURCE tables.sql;
-```
-
-2. Insira os dados de exemplo:
-
-```sql
-SOURCE insert.sql;
-```
-
-> Também é possível abrir o arquivo `Universidade.mwb` no MySQL Workbench para visualizar o diagrama EER.
-
-
-
-## Objetivo acadêmico
-
-Este trabalho demonstra conceitos de modelagem relacional vistos na disciplina de Banco de Dados:
-
-- modelagem conceitual/lógica,
-- normalização básica,
-- integridade referencial,
-- cardinalidades N:N com tabelas associativas,
-- e uso de constraints para validação de regras de negócio.
+**Curso:** Ciência da Computação - UVV (2026/1)
